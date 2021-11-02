@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: black;
+    }
+
+    #parent_slide {
+        /* border: 2px solid rgb(88, 88, 88); */
+        /* height: 300px; */
+        display: flex;
+        justify-content: space-between;
+        width: 90%;
+        margin: 30px auto;
+        align-items: center;
+    }
+
+    #parent_slide button {
+        height: max-content;
+        font-size: 5em;
+        color: white;
+        background-color: rgba(207, 15, 15, .0);
+        border: none;
+        cursor: pointer;
+    }
+
+    #parent_slide>div {
+        width: 28%;
+        height: 100%;
+        background-color: #ffffff;
+        /* border: 2px solid rgb(0, 255, 21); */
+        /* font-size: 5em; */
+        border-radius: 8px;
+        /* padding: 15px; */
+        box-sizing: border-box;
+    }
+
+    #parent_slide>div>div:nth-child(1) {
+
+        border: 2px solid rgb(0, 255, 21);
+        display: flex;
+        gap: 2%;
+        cursor: pointer;
+        margin: 4%;
+    }
+
+    #parent_slide>div>div:nth-child(2) {
+        margin: 4%;
+
+        border: 2px solid rgb(47, 0, 255);
+        gap: 2%;
+        cursor: pointer;
+    }
+
+    #parent_slide>div>div:nth-child(2) a {
+        text-decoration: none;
+        color: rgb(238, 54, 85);
+    }
+</style>
+
+<body>
+    <div id="parent_slide"></div>
+    <a href=""></a>
+
+    <!-- <div >Yesterday I passed the AZ-104 exam. <a target="_blank" href="https://www.twitter.com/pluralsight" tabindex="0">@pluralsight</a> courses are great to help prepare for these exams. <a target="_blank" href="https://www.twitter.com/hashtag/citrixctp?src=hash" tabindex="0">#citrixctp</a> <a target="_blank" href="https://www.twitter.com/hashtag/azure?src=hash" tabindex="0">#azure</a></div> -->
+
+    <script>
+        let parent_slide = document.getElementById('parent_slide')
+
+        var obj = [
+            {
+                name: "Martin Therkelsen",
+                id: "Mracket",
+                img: "https://pbs.twimg.com/profile_images/1448520867168784385/dCBGUked_bigger.jpg",
+                details: `Yesterday I passed the AZ-104 exam. <a target="_blank" href="https://www.twitter.com/pluralsight" tabindex="0">@pluralsight</a> courses are great to help prepare for these exams. <a target="_blank" href="https://www.twitter.com/hashtag/citrixctp?src=hash" tabindex="0">#citrixctp</a> <a target="_blank" href="https://www.twitter.com/hashtag/azure?src=hash" tabindex="0">#azure</a>`
+            },
+            {
+                name: "Martin Therkelsen",
+                id: "Mracket",
+                img: "https://pbs.twimg.com/profile_images/1448520867168784385/dCBGUked_bigger.jpg",
+                details: `Yesterday I passed the AZ-104 exam. <a target="_blank" href="https://www.twitter.com/pluralsight" tabindex="0">@pluralsight</a> courses are great to help prepare for these exams. <a target="_blank" href="https://www.twitter.com/hashtag/citrixctp?src=hash" tabindex="0">#citrixctp</a> <a target="_blank" href="https://www.twitter.com/hashtag/azure?src=hash" tabindex="0">#azure</a>`
+            },
+            {
+                name: "Martin Therkelsen",
+                id: "Mracket",
+                img: "https://pbs.twimg.com/profile_images/1448520867168784385/dCBGUked_bigger.jpg",
+                details: `Yesterday I passed the AZ-104 exam. <a target="_blank" href="https://www.twitter.com/pluralsight" tabindex="0">@pluralsight</a> courses are great to help prepare for these exams. <a target="_blank" href="https://www.twitter.com/hashtag/citrixctp?src=hash" tabindex="0">#citrixctp</a> <a target="_blank" href="https://www.twitter.com/hashtag/azure?src=hash" tabindex="0">#azure</a>`
+            },
+
+
+        ]
+
+        let btn_left = document.createElement('button')
+        btn_left.innerText = '<'
+        parent_slide.append(btn_left)
+        obj.forEach(product => {
+            console.log(product.name)
+            let div = document.createElement('div')
+            div.style.display = 'none'
+            let name = document.createElement('p')
+            name.innerText = product.name
+            let id = document.createElement('p')
+            id.innerText = '@' + product.id
+            let div_name = document.createElement('div')
+
+            let img = document.createElement('img')
+            img.src = product.img
+            let div_img = document.createElement('div')
+            let info = document.createElement('div')
+            info.onclick = function () {
+                window.location.href = `https://twitter.com/${product.id}`
+            }
+
+            let details = document.createElement('div')
+            details.innerHTML = product.details
+            div_name.append(name, id)
+            div_img.append(img)
+            info.append(div_img, div_name)
+            div.append(info, details)
+            parent_slide.append(div)
+        });
+        let btn_right = document.createElement('button')
+        btn_right.innerText = '>'
+        parent_slide.append(btn_right)
+
+        let divs = document.querySelectorAll("#parent_slide>div")
+        console.log(divs)
+        var left = 0
+        var right = 3
+        function slide() {
+            for (let i = left; i < right; i++) {
+                divs[i].style.display = 'block'
+            }
+        }
+        slide()
+        btn_right.onclick = function () {
+            if (right < divs.length) {
+
+                divs[left].style.display = 'none'
+                left++
+                right++
+                slide()
+            }
+        }
+        btn_left.onclick = function () {
+            if (left > 0) {
+
+                right--
+                divs[right].style.display = 'none'
+                left--
+                slide()
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
